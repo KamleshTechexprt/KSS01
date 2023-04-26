@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Licenses_Validation_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>Total_Licenses__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>Asset_Group__c</errorDisplayField>
+    <errorMessage>Total number of Licenses can not be negative</errorMessage>
+</ValidationRule>

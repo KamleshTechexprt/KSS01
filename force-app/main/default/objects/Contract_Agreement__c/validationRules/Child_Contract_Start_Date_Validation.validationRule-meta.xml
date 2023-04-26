@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Child_Contract_Start_Date_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(!ISBLANK(Parent_Contract__c ) ,Start_Date__c &lt;  Parent_Contract__r.End_Date__c )</errorConditionFormula>
+    <errorDisplayField>Asset_Ownership_Type__c</errorDisplayField>
+    <errorMessage>Contract Start date must be Greater than Expiration/End date of the Original Contracts.</errorMessage>
+</ValidationRule>

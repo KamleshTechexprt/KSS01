@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Professional_Service_Asset__c</fullName>
+    <externalId>false</externalId>
+    <label>Professional Service Asset</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Asset__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Professional Services</value>
+        </filterItems>
+        <filterItems>
+            <field>Asset__c.Available_Resources__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Asset__c</referenceTo>
+    <relationshipLabel>Professional Services Assignments</relationshipLabel>
+    <relationshipName>Human_Resource_Assignments</relationshipName>
+    <relationshipOrder>1</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

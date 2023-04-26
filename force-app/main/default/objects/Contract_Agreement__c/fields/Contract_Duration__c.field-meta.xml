@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contract_Duration__c</fullName>
+    <description>Min 6 months and max 60 months</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please enter duration in months</inlineHelpText>
+    <label>Contract Duration (months)</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

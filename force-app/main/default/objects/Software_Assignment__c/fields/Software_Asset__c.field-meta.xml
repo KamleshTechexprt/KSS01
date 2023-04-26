@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Software_Asset__c</fullName>
+    <externalId>false</externalId>
+    <label>Software Asset</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>No more Availabe Licenses to be assigned.</errorMessage>
+        <filterItems>
+            <field>Asset__c.RecordType.Name</field>
+            <operation>equals</operation>
+            <value>Software</value>
+        </filterItems>
+        <filterItems>
+            <field>Asset__c.Available_Licenses__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Asset__c</referenceTo>
+    <relationshipLabel>Software Assignment</relationshipLabel>
+    <relationshipName>Software_Assignment</relationshipName>
+    <relationshipOrder>1</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

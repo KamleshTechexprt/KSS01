@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>This email template is created to the contract owner for his expired contract.</description>
+        <name>Email_to_the_Contract_owner</name>
+        <label>Email to the Contract owner</label>
+        <locationX>50</locationX>
+        <locationY>768</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>Emailfortheenddate</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Contract_Owner_Email__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <elementReference>$Record.CreatedBy.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Email for Expired Contract</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>56.0</apiVersion>
+    <assignments>
+        <name>Assign_the_values</name>
+        <label>Assign the values</label>
+        <locationX>50</locationX>
+        <locationY>528</locationY>
+        <assignmentItems>
+            <assignToReference>Get_the_records.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Expired</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_the_status</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Check_the_End_date</name>
+        <label>Check the End date</label>
+        <locationX>182</locationX>
+        <locationY>408</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>End_date_is_yesterday</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_the_records.End_Date__c</leftValueReference>
+                <operator>WasSet</operator>
+                <rightValue>
+                    <elementReference>EndDateisYesterday</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_the_values</targetReference>
+            </connector>
+            <label>End date is yesterday</label>
+        </rules>
+    </decisions>
+    <description>When the contract will end,the status will be updated to expired.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>EndDateisYesterday</name>
+        <dataType>Boolean</dataType>
+        <expression>{!Get_the_records.End_Date__c} &lt; TODAY()</expression>
+    </formulas>
+    <interviewLabel>Flow for End date {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Flow for End date</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_the_records</name>
+        <label>Get the records</label>
+        <locationX>182</locationX>
+        <locationY>288</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_the_End_date</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Name</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contract_Agreement__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Status__c</queriedFields>
+        <queriedFields>End_Date__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_the_status</name>
+        <label>Update the status</label>
+        <locationX>50</locationX>
+        <locationY>648</locationY>
+        <connector>
+            <targetReference>Email_to_the_Contract_owner</targetReference>
+        </connector>
+        <inputReference>Get_the_records</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_the_records</targetReference>
+        </connector>
+        <object>Contract_Agreement__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>For_End_date</name>
+            <label>For End date</label>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>End_Date__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>Emailfortheenddate</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;Hello {!$Record.Contract_Owner_Name__c},&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Your contract has expired yesterday. You can check the details below :&lt;/p&gt;&lt;p&gt;Contact Number : {!$Record.Contract_Number__c}&lt;/p&gt;&lt;p&gt;Contract Duration : {!$Record.Contract_Duration__c}&lt;/p&gt;&lt;p&gt;End date of the Contract : {!$Record.End_Date__c}&lt;/p&gt;&lt;p&gt;Thank you&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</text>
+    </textTemplates>
+</Flow>

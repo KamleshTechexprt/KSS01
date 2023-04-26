@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Email will be sent to the Contract owner for the remaining budget less than 10%</description>
+        <name>Send_email_to_the_Contract_Owner</name>
+        <label>Send email to the Contract Owner</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>Sendemail</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Contract_Owner_Email__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Remaining budget is running low</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <name>Remaining_budget_less_than_10</name>
+        <label>Remaining budget less than 10%</label>
+        <locationX>182</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>less_than_10</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Remaining_Budget_Percent__c</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>10.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_email_to_the_Contract_Owner</targetReference>
+            </connector>
+            <label>less than 10%</label>
+        </rules>
+    </decisions>
+    <description>Email will be send to the Contract Owner when his remining budget for the Contract will be less than 10%</description>
+    <environments>Default</environments>
+    <interviewLabel>Remaining budget is less than 10% {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Remaining budget is less than 10%</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>get_the_records_for_the_Contract_agreement</name>
+        <label>get the records for the Contract agreement</label>
+        <locationX>182</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Remaining_budget_less_than_10</targetReference>
+        </connector>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contract_Agreement__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Remaining_Budget_Percent__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>get_the_records_for_the_Contract_agreement</targetReference>
+        </connector>
+        <object>Contract_Agreement__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>Sendemail</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;Hello {!$Record.Contract_Owner_Name__c},&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;I&apos;m writing this email to let you know that the remaining budget for the Contract - {!$Record.Name} with {!$Record.Contract_Number__c} is running low.&lt;/p&gt;&lt;p&gt;Please check the details for your Contract.&lt;/p&gt;&lt;p&gt;Thank you.&lt;/p&gt;</text>
+    </textTemplates>
+</Flow>

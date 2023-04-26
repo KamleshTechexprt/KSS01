@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_Licences_Validation_Rule</fullName>
+    <active>true</active>
+    <description>Assigned Licenses can not be greater than Total Licences.</description>
+    <errorConditionFormula>Assigned_Licenses__c &gt; Total_Licenses__c</errorConditionFormula>
+    <errorMessage>Assigned Licenses can not be greater than Total Licences.</errorMessage>
+</ValidationRule>

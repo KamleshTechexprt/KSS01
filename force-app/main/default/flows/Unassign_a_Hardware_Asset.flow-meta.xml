@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <name>Assign_Assignment_End_Date</name>
+        <label>Assign Assignment End Date</label>
+        <locationX>176</locationX>
+        <locationY>518</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Hardware_Asset_Assignment_Record.Assignment_End_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Assignment_End_Date</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Hardware_Asset_Assignment_Record.Reason_of_Unassignment__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Reason_of_Unassignment</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Hardware_Asset_Assignment_Record.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inactive</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Hardware_Asset_Assignment_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Serial_Number_field</name>
+        <label>Assign Serial Number field</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <assignmentItems>
+            <assignToReference>SerialNumber</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Hardware_Asset_Assignment_Record.Hardware_Asset_Details__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Unassign</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>Available</name>
+        <choiceText>Available</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Available</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>End_Of_Life</name>
+        <choiceText>End Of Life</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>End Of Life</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Pending_Imagining</name>
+        <choiceText>Pending Imagining</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Pending Imagining</stringValue>
+        </value>
+    </choices>
+    <description>This screen flow will be used to Unassign a Hardware Asset</description>
+    <environments>Default</environments>
+    <interviewLabel>Unassign a Hardware Asset {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Unassign a Hardware Asset</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_Hardware_Asset_Assignment_Record</name>
+        <label>Get Hardware Asset Assignment Record</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Serial_Number_field</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Hardware_Assignment__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Assignment_End_Date__c</queriedFields>
+        <queriedFields>Hardware_Asset_Details__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Hardware_Asset_Assignment_Record</name>
+        <label>Update Hardware Asset Assignment Record</label>
+        <locationX>176</locationX>
+        <locationY>638</locationY>
+        <connector>
+            <targetReference>Update_Parent_Hardware_Detail_record</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Error_Screen1</targetReference>
+        </faultConnector>
+        <inputReference>Get_Hardware_Asset_Assignment_Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Parent_Hardware_Detail_record</name>
+        <label>Update Parent Hardware Detail record</label>
+        <locationX>176</locationX>
+        <locationY>758</locationY>
+        <connector>
+            <targetReference>Success_Screen</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Error_Screen</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>SerialNumber</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Is_Assigned__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <elementReference>Status</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Hardware_Detail__c</object>
+    </recordUpdates>
+    <screens>
+        <description>Error Screen</description>
+        <name>Error_Screen</name>
+        <label>Error Screen</label>
+        <locationX>440</locationX>
+        <locationY>878</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Error_Message</name>
+            <fieldText>&lt;p&gt;An error occurred during the Hardware Detail record update.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>An error occurred during the Hardware Assignment record update.
+
+{!$Flow.FaultMessage}</description>
+        <name>Error_Screen1</name>
+        <label>Error Screen1</label>
+        <locationX>704</locationX>
+        <locationY>758</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Error_Message1</name>
+            <fieldText>&lt;p&gt;An error occurred during the Hardware Assignment record update.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Success_Screen</description>
+        <name>Success_Screen</name>
+        <label>Success_Screen</label>
+        <locationX>176</locationX>
+        <locationY>878</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Success_Message</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;The Hardware Asset has been unassigned successfully.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Unassign the Hardware Asset</description>
+        <name>Unassign</name>
+        <label>Unassign</label>
+        <locationX>176</locationX>
+        <locationY>398</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Assign_Assignment_End_Date</targetReference>
+        </connector>
+        <fields>
+            <name>Assignment_End_Date</name>
+            <dataType>Date</dataType>
+            <defaultValue>
+                <elementReference>Get_Hardware_Asset_Assignment_Record.Assignment_End_Date__c</elementReference>
+            </defaultValue>
+            <fieldText>Assignment End Date</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Status</name>
+            <choiceReferences>Available</choiceReferences>
+            <choiceReferences>Pending_Imagining</choiceReferences>
+            <choiceReferences>End_Of_Life</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>Available</defaultSelectedChoiceReference>
+            <fieldText>Status</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Reason_of_Unassignment</name>
+            <dataType>String</dataType>
+            <fieldText>Reason of Unassignment</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Hardware_Asset_Assignment_Record</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>recordId</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Serial Number of parent Hardware Detail object record</description>
+        <name>SerialNumber</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>19</activeVersionNumber>
+    <description>Flow to update Status of Contract to Ongoing on the basis of Start Date and send an email alert to Contract Owner</description>
+    <masterLabel>Contract Agreement Flow</masterLabel>
+</FlowDefinition>

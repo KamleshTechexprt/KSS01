@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Resources</fullName>
+    <active>true</active>
+    <description>Total Resources should be greater than 0.</description>
+    <errorConditionFormula>IF( RecordType.Name =&apos;Professional Services&apos;, 
+ABS(Total_Resources__c) &lt;=  0 
+|| ISBLANK(Total_Resources__c) = True
+, null)</errorConditionFormula>
+    <errorDisplayField>Total_Resources__c</errorDisplayField>
+    <errorMessage>Please enter Total Resources value.</errorMessage>
+</ValidationRule>

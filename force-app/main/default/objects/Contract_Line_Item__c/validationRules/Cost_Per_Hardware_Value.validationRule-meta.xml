@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cost_Per_Hardware_Value</fullName>
+    <active>true</active>
+    <description>Rule for cost per hardware field value to be greater than 0</description>
+    <errorConditionFormula>IF( RecordType.Name =&apos;Hardware&apos;,
+Cost_per_hardware__c &lt;= 0 || ABS(Cost_per_hardware__c) &lt;= 0
+|| ISBLANK(Cost_per_hardware__c) = True,null)</errorConditionFormula>
+    <errorDisplayField>Cost_per_hardware__c</errorDisplayField>
+    <errorMessage>Please enter Cost per Hardware.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Unassign Human Resource from Department.</description>
+    <fieldOverrides>
+        <field>Department_Name__c</field>
+        <formula>Professional_Services_Assignment__c.Department_Name__c</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Professional_Service_Asset__c</field>
+        <formula>Professional_Services_Assignment__c.Professional_Service_Asset__c</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Status__c</field>
+        <literalValue>Inactive</literalValue>
+    </fieldOverrides>
+    <label>Unassign</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Assignment_End_Date__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Reason_of_Unassignment__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns/>
+    </quickActionLayout>
+    <successMessage>The Human Resource unassignment is successful.</successMessage>
+    <type>Update</type>
+</QuickAction>

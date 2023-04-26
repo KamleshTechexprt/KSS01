@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cost_Per_License_Rule</fullName>
+    <active>true</active>
+    <description>Rule for Cost Per License field value to be greater than 0</description>
+    <errorConditionFormula>IF( RecordType.Name =&apos;Software&apos;,
+Cost_Per_License__c&lt;= 0 || ABS(Cost_Per_License__c) &lt;= 0
+|| ISBLANK(Cost_Per_License__c) = True,null)</errorConditionFormula>
+    <errorDisplayField>Cost_Per_License__c</errorDisplayField>
+    <errorMessage>Please enter Cost per license value.</errorMessage>
+</ValidationRule>

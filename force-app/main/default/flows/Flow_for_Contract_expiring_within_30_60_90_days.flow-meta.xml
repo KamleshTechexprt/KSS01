@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>The email is sent to the Contract Owner to remind him that the Contract is going to expire within 30 days.</description>
+        <name>Email_to_the_Contract_Owner</name>
+        <label>Email to the Contract Owner</label>
+        <locationX>176</locationX>
+        <locationY>791</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>EmailbodyforContractOwner</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Record.Contract_Owner_Email__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Contract expiring within 30 days</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <description>The decision element will check the contract end date before 30,40 and 90 days.</description>
+        <name>Check_the_end_date</name>
+        <label>Check the end date</label>
+        <locationX>176</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Within_30_days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_the_records_of_Contract_Agreement.End_Date__c</leftValueReference>
+                <operator>WasSet</operator>
+                <rightValue>
+                    <elementReference>Within30days</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Email_to_the_Contract_Owner</targetReference>
+            </connector>
+            <label>Within 30 days</label>
+        </rules>
+        <rules>
+            <name>Within_60_days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_the_records_of_Contract_Agreement.End_Date__c</leftValueReference>
+                <operator>WasSet</operator>
+                <rightValue>
+                    <elementReference>Within60days</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Email_to_the_Contract_Owner</targetReference>
+            </connector>
+            <label>Within 60 days</label>
+        </rules>
+        <rules>
+            <name>Within_90_days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_the_records_of_Contract_Agreement.End_Date__c</leftValueReference>
+                <operator>WasSet</operator>
+                <rightValue>
+                    <elementReference>Within90days</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Email_to_the_Contract_Owner</targetReference>
+            </connector>
+            <label>Within 90 days</label>
+        </rules>
+    </decisions>
+    <description>When the end date for the Contract is within 30,60 and 90 days then a email will be send to the Contract Owner for reminding the Contract expiration date.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>Within30days</name>
+        <dataType>Boolean</dataType>
+        <expression>{!Get_the_records_of_Contract_Agreement.End_Date__c} &lt;=TODAY() + 30</expression>
+    </formulas>
+    <formulas>
+        <name>Within60days</name>
+        <dataType>Boolean</dataType>
+        <expression>{!Get_the_records_of_Contract_Agreement.End_Date__c}&lt;= TODAY() + 60</expression>
+    </formulas>
+    <formulas>
+        <name>Within90days</name>
+        <dataType>Boolean</dataType>
+        <expression>{!Get_the_records_of_Contract_Agreement.End_Date__c}&lt;= TODAY() + 90</expression>
+    </formulas>
+    <interviewLabel>Flow for Contract expiring within 30,60,0 days {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Flow for Contract expiring within 30,60,90 days</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_the_records_of_Contract_Agreement</name>
+        <label>Get the records of Contract Agreement</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_the_end_date</targetReference>
+        </connector>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contract_Agreement__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>End_Date__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_the_records_of_Contract_Agreement</targetReference>
+        </connector>
+        <object>Contract_Agreement__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>EmailbodyforContractOwner</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;Hello {!$Record.Contract_Owner_Name__c},&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;This email is to inform you that the Contract name - {!$Record.Name} with {!$Record.Contract_Number__c} between you and {!$Record.Vendor__r.Name} will be expired on {!$Record.End_Date__c}.&lt;/p&gt;&lt;p&gt;Please check the details from your end and we would welcome your renewal for this contract.&lt;/p&gt;&lt;p&gt;We thank you for your custom.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</text>
+    </textTemplates>
+</Flow>

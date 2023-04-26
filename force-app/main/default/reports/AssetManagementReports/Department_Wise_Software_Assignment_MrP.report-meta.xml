@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Employee_Detail__c$Name</field>
+    </columns>
+    <columns>
+        <field>Employee_Detail__c.Software_Assignment__r$Software_Asset__c</field>
+    </columns>
+    <columns>
+        <field>Employee_Detail__c$Designation__c</field>
+    </columns>
+    <columns>
+        <field>Employee_Detail__c$Division_Name__c</field>
+    </columns>
+    <columns>
+        <field>Employee_Detail__c.Software_Assignment__r$Assigned_Start_Date__c</field>
+    </columns>
+    <description>Department Level Software Assignments to employees.</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Employee_Detail__c$Department_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Employee_Detail__c.Software_Assignment__r$Status__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Department Wise Software Assignment</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Software_Assignment_with_employee_details__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Employee_Detail__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Asset_Name__c</fullName>
+    <description>Master detail relationship with asset object.</description>
+    <externalId>false</externalId>
+    <label>Asset Name</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Asset__c.Asset_Type__c</field>
+            <operation>equals</operation>
+            <value>Professional Services</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Asset__c</referenceTo>
+    <relationshipLabel>Employee Details</relationshipLabel>
+    <relationshipName>Employees</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

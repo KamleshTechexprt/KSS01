@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <name>Assign_Status_and_Assignment_End_Date</name>
+        <label>Assign Status and Assignment End Date</label>
+        <locationX>176</locationX>
+        <locationY>398</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Software_Asset_Assignment_record.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inactive</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Software_Asset_Assignment_record.Assignment_End_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Assignment_End_Date</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Software_Asset_Assignment_record.Reason_of_Unassignment__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Reason_of_Unassignment</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Asset_Assignment_Record</targetReference>
+        </connector>
+    </assignments>
+    <description>Unassign a Software Asset</description>
+    <environments>Default</environments>
+    <interviewLabel>Unassign a Software Asset {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Unassign a Software Asset</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <description>Get Software Asset Assignment record</description>
+        <name>Get_Software_Asset_Assignment_record</name>
+        <label>Get Software Asset Assignment record</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Unassign</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>AssetAssignmentid</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Software_Assignment__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Assignment_End_Date__c</queriedFields>
+        <queriedFields>Status__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update Asset Assignment Record</description>
+        <name>Update_Asset_Assignment_Record</name>
+        <label>Update Asset Assignment Record</label>
+        <locationX>176</locationX>
+        <locationY>518</locationY>
+        <connector>
+            <targetReference>Success_Screen</targetReference>
+        </connector>
+        <inputReference>Get_Software_Asset_Assignment_record</inputReference>
+    </recordUpdates>
+    <screens>
+        <name>Success_Screen</name>
+        <label>Success Screen</label>
+        <locationX>176</locationX>
+        <locationY>638</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Success_Message</name>
+            <fieldText>&lt;p&gt;The software asset has been unassigned successfully.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>Unassign the Software License</description>
+        <name>Unassign</name>
+        <label>Unassign</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Assign_Status_and_Assignment_End_Date</targetReference>
+        </connector>
+        <fields>
+            <name>Assignment_End_Date</name>
+            <dataType>Date</dataType>
+            <defaultValue>
+                <elementReference>Get_Software_Asset_Assignment_record.Assignment_End_Date__c</elementReference>
+            </defaultValue>
+            <fieldText>Assignment End Date</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Reason_of_Unassignment</name>
+            <dataType>String</dataType>
+            <fieldText>Reason of Unassignment</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Software_Asset_Assignment_record</targetReference>
+        </connector>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <name>AssetAssignmentid</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

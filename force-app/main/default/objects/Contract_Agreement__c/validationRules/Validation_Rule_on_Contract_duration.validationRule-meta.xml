@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validation_Rule_on_Contract_duration</fullName>
+    <active>true</active>
+    <description>User must enter the contract duration min 6 months to max 60 months.</description>
+    <errorConditionFormula>OR(
+Contract_Duration__c  &lt; 6,
+Contract_Duration__c  &gt;  60
+)</errorConditionFormula>
+    <errorDisplayField>Contract_Duration__c</errorDisplayField>
+    <errorMessage>The Contract duration must be between 6 to 60 months.</errorMessage>
+</ValidationRule>

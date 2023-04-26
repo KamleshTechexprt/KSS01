@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_Assets__c</fullName>
+    <description>Roll Summary of Deployed Assets</description>
+    <externalId>false</externalId>
+    <label>Assigned Assets</label>
+    <summaryFilterItems>
+        <field>Hardware_Detail__c.Status__c</field>
+        <operation>equals</operation>
+        <value>Deployed</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Hardware_Detail__c.Asset_Name__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

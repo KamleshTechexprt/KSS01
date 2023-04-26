@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_Assets_Validation_Rule</fullName>
+    <active>true</active>
+    <description>Assigned Assets can not be greater than Total Assets.</description>
+    <errorConditionFormula>Assigned_Assets__c &gt;  Total_Assets__c</errorConditionFormula>
+    <errorDisplayField>Asset_Group__c</errorDisplayField>
+    <errorMessage>Assigned Assets can not be greater than Total Assets.</errorMessage>
+</ValidationRule>

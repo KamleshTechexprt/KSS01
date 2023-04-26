@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rule_for_Asset_Type</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(
+OR(
+INCLUDES( Vendor__r.Type__c , &apos;Hardware&apos;) &amp;&amp; TEXT(Asset_Type__c) = &apos;Hardware&apos;,
+INCLUDES( Vendor__r.Type__c , &apos;Software&apos;) &amp;&amp; TEXT(Asset_Type__c) = &apos;Software&apos;,
+INCLUDES( Vendor__r.Type__c , &apos;Professional Services&apos;) &amp;&amp; TEXT(Asset_Type__c) = &apos;Professional Services&apos;))</errorConditionFormula>
+    <errorDisplayField>Asset_Type__c</errorDisplayField>
+    <errorMessage>This type of Assets are not provided by this Vendor. Please see Vendor Details to know the  types of Assets they are providing.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cost_Per_Resource_Rule</fullName>
+    <active>true</active>
+    <description>Rule for cost per resource to be greater than 0</description>
+    <errorConditionFormula>IF( RecordType.Name =&apos;Professional Services&apos;,
+Cost_Per_Resource__c&lt;= 0 || ABS(Cost_Per_Resource__c) &lt;= 0
+|| ISBLANK(Cost_Per_Resource__c) = True,null)</errorConditionFormula>
+    <errorDisplayField>Cost_Per_Resource__c</errorDisplayField>
+    <errorMessage>Please enter cost per resource value.</errorMessage>
+</ValidationRule>

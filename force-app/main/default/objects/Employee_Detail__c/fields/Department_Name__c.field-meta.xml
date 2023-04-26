@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Department_Name__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter branch or major subdivision of your organization.</inlineHelpText>
+    <label>Department Name</label>
+    <referenceTo>Departments__c</referenceTo>
+    <relationshipLabel>Employee Details</relationshipLabel>
+    <relationshipName>Employee_Details</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

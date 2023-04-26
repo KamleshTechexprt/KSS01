@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Hardware_Assets</fullName>
+    <active>true</active>
+    <description>Total Hardware should be greater than 0</description>
+    <errorConditionFormula>IF( RecordType.Name =&apos;Hardware&apos;,
+Total_Assets__c   &lt;=   0 || ABS(Total_Assets__c) &lt;=  0 
+|| ISBLANK(Total_Assets__c) = True,null)</errorConditionFormula>
+    <errorDisplayField>Total_Assets__c</errorDisplayField>
+    <errorMessage>Please enter Total Assets value.</errorMessage>
+</ValidationRule>

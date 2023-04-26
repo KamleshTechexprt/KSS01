@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Employee_Detail__c$Name</field>
+    </columns>
+    <columns>
+        <field>Employee_Detail__c.Hardware_Assignment__r$Hardware_Asset_Name__c</field>
+    </columns>
+    <columns>
+        <field>Employee_Detail__c$Division_Name__c</field>
+    </columns>
+    <columns>
+        <field>Employee_Detail__c$Designation__c</field>
+    </columns>
+    <columns>
+        <field>Employee_Detail__c.Hardware_Assignment__r$Assignment_Start_Date__c</field>
+    </columns>
+    <description>Department wise Hardware Assigned to Employees</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Employee_Detail__c$Department_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Employee_Detail__c.Hardware_Assignment__r$Status__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Department wise Hardware Assignment</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Employee_details_with_Hardware_Assignment__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Employee_Detail__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

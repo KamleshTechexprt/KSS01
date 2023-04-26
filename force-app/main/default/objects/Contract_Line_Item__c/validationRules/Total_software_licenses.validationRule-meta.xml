@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_software_licenses</fullName>
+    <active>true</active>
+    <description>Total Software licenses should be greater than 0</description>
+    <errorConditionFormula>IF( RecordType.Name =&apos;Software&apos;,
+Total_Licenses__c  &lt;=   0 || ABS(Total_Licenses__c) &lt;=  0 
+|| ISBLANK(Total_Licenses__c) = True,null)</errorConditionFormula>
+    <errorDisplayField>Total_Licenses__c</errorDisplayField>
+    <errorMessage>Please enter Total Licenses value.</errorMessage>
+</ValidationRule>

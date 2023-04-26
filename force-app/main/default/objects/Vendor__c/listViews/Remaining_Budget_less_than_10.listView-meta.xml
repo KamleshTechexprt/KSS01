@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Remaining_Budget_less_than_10</fullName>
+    <columns>NAME</columns>
+    <columns>Type__c</columns>
+    <columns>Status__c</columns>
+    <columns>Total_Cost_To_Company__c</columns>
+    <columns>Remaining_Budget__c</columns>
+    <columns>Exhausted_Budget__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Remaining_Budget_Percent__c</field>
+        <operation>lessThan</operation>
+        <value>10.0</value>
+    </filters>
+    <label>Remaining Budget less than 10%</label>
+</ListView>

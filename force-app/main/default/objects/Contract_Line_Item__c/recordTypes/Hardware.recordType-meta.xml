@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hardware</fullName>
+    <active>true</active>
+    <label>Hardware</label>
+    <picklistValues>
+        <picklist>License_Type__c</picklist>
+        <values>
+            <fullName>Per Device License</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Per User License</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Perpetual license</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subscription-Based License</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tiered license</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Usage-Based License</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

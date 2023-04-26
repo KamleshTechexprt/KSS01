@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hardware_Asset_Laptop</fullName>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Asset_Group__c</field>
+        <operation>equals</operation>
+        <value>Laptop</value>
+    </filters>
+    <label>Hardware Asset - Laptop</label>
+</ListView>
